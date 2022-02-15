@@ -1,0 +1,27 @@
+{
+    "manifest_version": 3,
+
+    "name": "Site Blocker",
+    "description": "A website blocker thing for productivity.",
+    "author": "mattyhempstead",
+    "version": "1.0.0",
+
+    "action": {
+        "default_popup": "html/popup.html"
+    },
+
+    "content_scripts": [
+        {
+            "matches": [
+                "*://*/*"
+            ],
+            "js": [
+                "js/site-blocker.js"
+            ],
+            "run_at" : "document_end"
+        }
+    ],
+    "permissions": [
+        "storage"
+    ]
+}
