@@ -1,58 +1,44 @@
 
-data = document.querySelector('textarea#data');
-updateMsg = document.querySelector('#update-msg');
+dataText = document.querySelector('textarea#data');
+successMsg = document.querySelector('#success-msg');
+errorMsg = document.querySelector('#error-msg');
 
-
-chrome.storage.sync.get("data", function(items){
-    console.log(items);
-
-    let val;
-    if ("data" in items) {
-        val = items["data"];
+const setMessage = (msg, error=False) => {
+    if (error) {
+        successMsg.innerHTML = "";
+        errorMsg.innerHTML = msg;
     } else {
-        val = {
-            sites: [
-
-            ]
-        };
+        successMsg.innerHTML = msg;
+        errorMsg.innerHTML = "";
     }
-    data.value = JSON.stringify(val, null, 4);
-});
+}
+
+// Populate dataText textarea with data
+(async () => {
+    const data = await getStorageData();
+    dataText.value = JSON.stringify(data, null, 4);
+})();
 
 
-document.querySelector("button#update-button").addEventListener("click", () => {
+document.querySelector("button#update-button").addEventListener("click", async () => {
+    console.log("Updating data", dataText.value);
 
-    console.log("updating data", data.value);
-
-    let val;
+    // Attempt data update
     try {
-        val = JSON.parse(data.value);
-
-    } catch {
-        updateMsg.innerText = "Data is not valid JSON";
-        return;
-    }
-
-    if ("sites" in val) {
-        for (site of val.sites) {
-            try {
-                console.log(site);
-                let urlPat = new URLPattern(site);
-            } catch {
-                updateMsg.innerText = "Invalid URLPattern site";
-                return;
-            }
+        // Check valid JSON
+        let val;
+        try {
+            val = JSON.parse(dataText.value);
+        } catch {
+            throw new Error("Data is not valid JSON");
         }
-    } else {
-        updateMsg.innerText = "Data JSON is missing 'sites' field";
-        return;
+
+        const successMsg = await setStorageData(val);
+        setMessage(successMsg, error=false);
+    } catch (err) {
+        console.log("Error when saving data", err.message);
+        setMessage(err.message, error=true);
     }
-
-    chrome.storage.sync.set({"data": val}, () => {
-
-        console.log("yay updated");
-        updateMsg.innerText = "Successfully Updated";
-    });
 
 });
 

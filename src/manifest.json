@@ -4,11 +4,18 @@
     "name": "Site Blocker",
     "description": "A website blocker thing for productivity.",
     "author": "mattyhempstead",
-    "version": "1.0.0",
+    "version": "1.1.0",
 
     "action": {
         "default_popup": "html/popup.html"
     },
+
+    "web_accessible_resources": [
+        {
+            "resources": ["html/blocker-redirect.html"],
+            "matches": ["*://*/*"]
+        }
+    ],
 
     "content_scripts": [
         {
@@ -16,6 +23,7 @@
                 "*://*/*"
             ],
             "js": [
+                "js/manage-sites.js",
                 "js/site-blocker.js"
             ],
             "run_at" : "document_end"

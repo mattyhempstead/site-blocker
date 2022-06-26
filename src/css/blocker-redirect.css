@@ -1,0 +1,56 @@
+
+body {
+    background-color: #111;
+    color: white;
+
+    text-align: center;
+    padding-top: 5em;
+
+    font-size: 1em;
+}
+
+h1 {
+    font-size: 3rem;
+}
+
+#blocked-title {
+    padding-top: 3rem;
+    font-size: 1.5rem;
+    font-style: italic;
+    color: rgb(201, 201, 201);
+}
+
+a#blocked-url-link {
+    display: inline-block;
+    color: greenyellow;
+}
+
+div#unblock-container {
+    padding-top: 3em;
+    font-size: 3em;
+}
+
+div#unblock-container button {
+    font-size: 2rem;
+    padding: 1.5rem;
+    
+    border: 3px solid black;
+    border-radius: 10px;
+    cursor: pointer;
+
+    color: white;
+}
+
+div#unblock-container button#btn-temp-access-start {
+    background-color: rgb(26, 144, 26);
+}
+div#unblock-container button#btn-temp-access-start:hover {
+    background-color: rgb(21, 91, 21);
+}
+
+div#unblock-container button#btn-temp-access-end {
+    background-color: rgb(144, 107, 26);
+}
+div#unblock-container button#btn-temp-access-end:hover {
+    background-color: rgb(67, 60, 22);
+}

@@ -5,3 +5,7 @@ textarea {
     height: 30em;
 
 }
+
+#error-msg {
+    color: red;
+}
